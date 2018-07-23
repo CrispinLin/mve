@@ -68,6 +68,11 @@ Features::compute (mve::Scene::Ptr scene, ViewportList* viewports)
         viewport->features.set_options(this->opts.feature_options);
         viewport->features.compute_features(image);
         viewport->features.normalize_feature_positions();
+        
+        std::cout << "==========DEBUGGING1=========="<< std::endl;
+        std::cout<< viewport->features.sift_descriptors.size()<<std::endl;
+        std::cout<< viewport->features.surf_descriptors.size()<<std::endl;
+        std::cout << "==========DEBUGGING1=========="<< std::endl;        
 
 #pragma omp critical
         {

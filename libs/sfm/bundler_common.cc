@@ -59,7 +59,7 @@ save_prebundle_data (ViewportList const& viewports,
 {
     /* Write signature. */
     out.write(PREBUNDLE_SIGNATURE, PREBUNDLE_SIGNATURE_LEN);
-
+    
     /* Write number of viewports. */
     int32_t num_viewports = static_cast<int32_t>(viewports.size());
     out.write(reinterpret_cast<char const*>(&num_viewports), sizeof(int32_t));

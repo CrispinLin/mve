@@ -32,6 +32,7 @@
 #include "sfm/bundler_init_pair.h"
 #include "sfm/bundler_intrinsics.h"
 #include "sfm/bundler_incremental.h"
+#include "ma/patchinfo_io.h"
 
 #define RAND_SEED_MATCHING 0
 #define RAND_SEED_SFM 0
@@ -197,16 +198,34 @@ sfm_reconstruct (AppSettings const& conf)
         std::exit(EXIT_SUCCESS);
     }
 
+    // std::cout << "==========DEBUGGING=========="<<std::endl;
+    // for (auto &i : viewports[0].features.positions)
+    // {
+    //     std::cout << i << std::endl;
+    //     break;
+    // }
+
+    // std::cout<<viewports[0].features.surf_descriptors[0].x<<std::endl;
+
+    // for (auto i = viewports[0].features.surf_descriptors.begin(); i != viewports[0].features.surf_descriptors.end(); ++i)
+    // {
+    //     std::cout << i->x << ' ';
+    //     std::cout << i->y << ' ';
+    //     std::cout << i->scale << std::endl;
+    //     break;
+    // }
+    // std::cout << "==========DEBUGGING==========" << std::endl;
+
     /* Drop descriptors and embeddings to save memory. */
     scene->cache_cleanup();
-    for (std::size_t i = 0; i < viewports.size(); ++i)
-        viewports[i].features.clear_descriptors();
+for (std::size_t i = 0; i < viewports.size(); ++i)
+    viewports[i].features.clear_descriptors();
 
-    /* Check if there are some matching images. */
-    if (pairwise_matching.empty())
-    {
-        std::cerr << "No matching image pairs. Exiting." << std::endl;
-        std::exit(EXIT_FAILURE);
+/* Check if there are some matching images. */
+if (pairwise_matching.empty())
+{
+    std::cerr << "No matching image pairs. Exiting." << std::endl;
+    std::exit(EXIT_FAILURE);
     }
 
     /*
